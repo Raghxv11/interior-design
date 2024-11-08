@@ -3,9 +3,11 @@ import Replicate from "replicate";
 import {ref, uploadString, getDownloadURL } from "firebase/storage";
 import { storage } from "@/config/firebaseConfig";
 import axios from "axios";
+import { db } from "@/config/db";
+import { generatedDesigns } from "@/config/schema";
 
 const replicate = new Replicate({
-    auth: process.env.NEXT_PUBLIC_REPLICATE_API_TOKEN
+    auth: process.env.REPLICATE_API_TOKEN
 });
 
 export async function POST(req) {
@@ -30,7 +32,7 @@ export async function POST(req) {
             generatedImageUrl: url,
             userEmail: userEmail
         }).returning({id: generatedDesigns.id});
-        return NextResponse.json({result: dbResult[0]});
+        return NextResponse.json({result: {generatedImageUrl: url, id: dbResult[0].id}});
 
     } catch (e) {
         console.error('Error processing image:', e);

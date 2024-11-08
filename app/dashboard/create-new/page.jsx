@@ -9,12 +9,25 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "@/config/firebaseConfig";
 import axios from "axios";
 import { useUser } from "@clerk/nextjs";
-import Customloading from "../_components/Customloading";
+import ComparisonModal from "./_components/ComparisonModal";
+
+const CustomLoading = () => {
+  return (
+    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-60 z-50">
+      <div className="text-center text-white">
+        <h2 className="text-2xl font-bold mb-4">Generating Design...</h2>
+        <p>Please wait while we transform your room</p>
+      </div>
+    </div>
+  );
+};
 
 function CreateNew() {
     const {user}=useUser();
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(false);
+    const [outputImage, setOutputImage] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     const onHandleInputChange = (value, key) => {
         setFormData(prev => ({...prev, [key]: value}));
@@ -32,10 +45,12 @@ function CreateNew() {
                 additionalReq: formData?.additionalReq,
                 userEmail: user?.primaryEmailAddress?.emailAddress
             });
-            console.log(result);
+            
+            setOutputImage(result.data.result.generatedImageUrl);
+            setShowModal(true);
+            setLoading(false);
         } catch (error) {
             console.error(error);
-        } finally {
             setLoading(false);
         }
     };
@@ -86,9 +101,11 @@ function CreateNew() {
         });
     };
 
+    console.log("Modal state:", { showModal, outputImage, originalImage: formData?.image });
+
     return (
         <div>
-            {loading && <Customloading />}
+            {loading && <CustomLoading />}
             <div className="flex flex-col items-center justify-center ">
                 <h2 className="text-4xl text-primary font-semibold">
                     Experience the magic of AI Remodeling
@@ -120,6 +137,13 @@ function CreateNew() {
                     />
                 </div>
             </div>
+            
+            <ComparisonModal 
+                showModal={showModal}
+                setShowModal={setShowModal}
+                originalImage={formData?.image}
+                generatedImage={outputImage}
+            />
         </div>
     );
 }
