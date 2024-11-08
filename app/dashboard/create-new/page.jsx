@@ -32,19 +32,45 @@ const SaveToFirebase = async () => {
     return;
   }
 
-  const fileName = Date.now() + ".png";
+  // Convert PNG to JPEG if necessary
+  const imageToUpload = await convertToJpeg(formData.image);
+  const fileName = Date.now() + ".jpg";
   const imageRef = ref(storage, 'designs/' + fileName);
 
-  // Upload the raw File object
-  await uploadBytes(imageRef, formData.image).then(() => {
+  // Upload the converted image
+  await uploadBytes(imageRef, imageToUpload).then(() => {
     console.log("Image uploaded to Firebase");
   });
 
-  //uploaded file url
   const downloadUrl = await getDownloadURL(imageRef);
   console.log(downloadUrl);
   return downloadUrl;
 };  
+
+// Add this new function to convert PNG to JPEG
+const convertToJpeg = async (file) => {
+  return new Promise((resolve) => {
+    if (!file.type.includes('png')) {
+      resolve(file);
+      return;
+    }
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      canvas.toBlob((blob) => {
+        resolve(new File([blob], 'converted.jpg', { type: 'image/jpeg' }));
+      }, 'image/jpeg', 0.95);
+    };
+
+    img.src = URL.createObjectURL(file);
+  });
+};
 
   return (
     <div>
