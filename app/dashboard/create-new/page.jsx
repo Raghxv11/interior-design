@@ -63,7 +63,7 @@ function CreateNew() {
 
         // Convert PNG to JPEG if necessary
         const imageToUpload = await convertToJpeg(formData.image);
-        const fileName = Date.now() + ".jpg";
+        const fileName = Date.now() + "_raw.jpg";
         const imageRef = ref(storage, 'designs/' + fileName);
 
         // Upload the converted image
