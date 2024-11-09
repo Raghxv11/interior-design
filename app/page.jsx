@@ -1,6 +1,8 @@
 "use client"
 import React from 'react';
 import { Sparkles, Palette, Wand2, Brain, Camera, Clock3, ChevronRight, Github } from 'lucide-react';
+import Link from 'next/link';
+
 
 function FeatureCard({ Icon, title, description }) {
   return (
@@ -12,58 +14,60 @@ function FeatureCard({ Icon, title, description }) {
   );
 }
 
+
 function Page() {
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
       <header className="relative overflow-hidden">
         <nav className="absolute top-0 w-full z-10 px-6 py-4">
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
             <div className="flex items-center space-x-2">
               <Palette className="w-8 h-8 text-purple-600" />
               <span className="text-xl font-bold text-gray-800">InteriorAI</span>
             </div>
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-4 sm:space-x-6">
               <a href="#features" className="text-gray-600 hover:text-gray-900">Features</a>
               <a href="#showcase" className="text-gray-600 hover:text-gray-900">Showcase</a>
-              <button className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition-colors">
+              <Link href="/dashboard" className="hidden sm:block bg-purple-600 text-white px-4 sm:px-6 py-2 rounded-full hover:bg-purple-700 transition-colors">
                 Try Now
-              </button>
+              </Link>
             </div>
           </div>
         </nav>
 
-        <div className="pt-32 pb-20 px-6">
+        <div className="pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6">
           <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-              <div className="lg:w-1/2">
-                <div className="flex items-center space-x-2 mb-6">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+              <div className="lg:w-1/2 text-center lg:text-left">
+                <div className="flex items-center justify-center lg:justify-start space-x-2 mb-6">
                   <Sparkles className="w-5 h-5 text-purple-600" />
                   <span className="text-purple-600 font-medium">AI-Powered Design</span>
                 </div>
-                <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
                   Transform Your Space with AI Interior Design
                 </h1>
-                <p className="text-xl text-gray-600 mb-8">
+                <p className="text-lg sm:text-xl text-gray-600 mb-8">
                   Experience the future of interior design. Our AI-powered platform creates stunning, personalized spaces in seconds.
                 </p>
-                <div className="flex items-center space-x-4">
-                  <button className="bg-purple-600 text-white px-8 py-3 rounded-full hover:bg-purple-700 transition-colors flex items-center">
+                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                  <Link href="/dashboard" className="w-full sm:w-auto bg-purple-600 text-white px-8 py-3 rounded-full hover:bg-purple-700 transition-colors flex items-center justify-center">
                     Get Started <ChevronRight className="w-5 h-5 ml-2" />
-                  </button>
-                  <button className="border-2 border-gray-200 px-8 py-3 rounded-full hover:border-purple-600 transition-colors">
+                  </Link>
+                  <Link href="/dashboard" className="w-full sm:w-auto border-2 border-gray-200 px-8 py-3 rounded-full hover:border-purple-600 transition-colors text-center">
                     View Demo
-                  </button>
+                  </Link>
                 </div>
               </div>
               <div className="lg:w-1/2">
-                <div className="relative">
+                <div className="relative px-6 sm:px-0">
                   <img
                     src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80"
                     alt="AI Interior Design Preview"
-                    className="rounded-xl shadow-2xl"
+                    className="rounded-xl shadow-2xl w-full"
                   />
-                  <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-lg">
+                  <div className="absolute -bottom-6 right-0 sm:-right-6 bg-white p-4 rounded-xl shadow-lg">
                     <div className="flex items-center space-x-2">
                       <Wand2 className="w-5 h-5 text-purple-600" />
                       <span className="font-medium">AI Generated</span>
