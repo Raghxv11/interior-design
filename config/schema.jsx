@@ -5,7 +5,7 @@ export const Users = pgTable("users", {
     name: varchar("name").notNull(),
     email: varchar("email").notNull().unique(),
     imageUrl: varchar("imageUrl").notNull(),
-    credits: integer("credits").default(3)
+    credits: integer("credits").default(10)
 });
 
 export const generatedDesigns = pgTable("generatedDesigns", {

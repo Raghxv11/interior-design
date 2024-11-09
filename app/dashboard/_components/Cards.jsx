@@ -18,8 +18,8 @@ function Cards({room}) {
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className="aspect-video">
         <ReactBeforeSliderComponent
-          firstImage={FIRST_IMAGE}
-          secondImage={SECOND_IMAGE}
+          firstImage={SECOND_IMAGE}
+          secondImage={FIRST_IMAGE}
           delimiterColor="#fff"
         />
       </div>

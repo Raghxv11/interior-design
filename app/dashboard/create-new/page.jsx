@@ -10,6 +10,7 @@ import { storage } from "@/config/firebaseConfig";
 import axios from "axios";
 import { useUser } from "@clerk/nextjs";
 import ComparisonModal from "./_components/ComparisonModal";
+import Link from "next/link";
 
 const CustomLoading = () => {
   return (
@@ -107,6 +108,7 @@ function CreateNew() {
         <div>
             {loading && <CustomLoading />}
             <div className="flex flex-col items-center justify-center ">
+                <Button className="absolute left-10 top-28"><Link href={'/dashboard'}>Back to Dashboard</Link></Button>
                 <h2 className="text-4xl text-primary font-semibold">
                     Experience the magic of AI Remodeling
                 </h2>
