@@ -25,7 +25,7 @@ function Page() {
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
             <div className="flex items-center space-x-2">
               <Palette className="w-8 h-8 text-purple-600" />
-              <span className="text-xl font-bold text-gray-800">InteriorAI</span>
+              <span className="text-xl font-bold text-gray-800">InterioAI</span>
             </div>
             <div className="flex items-center space-x-4 sm:space-x-6">
               <a href="#features" className="text-gray-600 hover:text-gray-900">Features</a>

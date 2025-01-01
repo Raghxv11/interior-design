@@ -8,7 +8,7 @@ const outfit = Outfit({
 });
 
 export const metadata = {
-  title: "AI Interior Design",
+  title: "Interio AI",
   description: "AI Interior Design",
 };
 

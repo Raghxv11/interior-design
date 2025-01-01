@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 
 function Header() {
     const {userDetail, setUserDetail} = useContext(UserDetailContext);
+    
   return (
     <div className='p-4 shadow-sm flex justify-between items-center'>
         <div className='flex items-center gap-2'>

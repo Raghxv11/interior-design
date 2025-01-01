@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ImageSelection from "./_components/ImageSelection";
 import RoomType from "./_components/RoomType";
 import DesignType from "./_components/DesignType";
@@ -11,6 +11,9 @@ import axios from "axios";
 import { useUser } from "@clerk/nextjs";
 import ComparisonModal from "./_components/ComparisonModal";
 import Link from "next/link";
+import { UserDetailContext } from "@/app/_context/UserDetailContext";
+import { db } from "@/config/db";
+import { Users } from "@/config/schema";
 
 const CustomLoading = () => {
   return (
@@ -29,6 +32,7 @@ function CreateNew() {
     const [loading, setLoading] = useState(false);
     const [outputImage, setOutputImage] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const {userDetail, setUserDetail} = useContext(UserDetailContext);
 
     const onHandleInputChange = (value, key) => {
         setFormData(prev => ({...prev, [key]: value}));
@@ -50,11 +54,23 @@ function CreateNew() {
             setOutputImage(result.data.result.generatedImageUrl);
             setShowModal(true);
             setLoading(false);
+            await updateCredits();
         } catch (error) {
             console.error(error);
             setLoading(false);
         }
     };
+    const updateCredits = async () => {
+        const result = await db.update(Users).set({
+            credits:(userDetail?.credits)-1
+        }).returning({id:Users.id});
+
+        if (result){
+            setUserDetail((prev) => ({...prev, credits: userDetail?.credits - 1}));
+            return result[0].id;
+        }
+    }
+
 
     const SaveToFirebase = async () => {
         if (!formData.image) {
